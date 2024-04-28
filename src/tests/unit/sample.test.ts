@@ -3,7 +3,7 @@ import UserService from '../../services/user.service';
 import mockedPrisma from '../helpers/__mocks__/prisma';
 import mockedData from './utils/mockedData';
 
-vi.mock('../../libs/prisma');
+vi.mock('../helpers/prisma');
 
 describe('unit tests', () => {
   beforeEach(() => {
