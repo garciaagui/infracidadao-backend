@@ -30,7 +30,9 @@ const occurrences = [
     title: 'Vazamento de água na rua principal',
     description:
       'Há um vazamento de água na calçada em frente ao supermercado.',
-    location: 'Rua Principal, 123',
+    neighborhood: 'Centro',
+    street: 'Rua Principal',
+    reference: 'Em frente ao estacionamento da praça',
     status: Status.Finalizado,
     image: 'https://picsum.photos/400',
     userId: 1
@@ -40,7 +42,9 @@ const occurrences = [
     title: 'Lâmpada queimada no parque',
     description:
       'Uma das lâmpadas do poste no parque está queimada, deixando a área escura à noite.',
-    location: 'Parque Central',
+    neighborhood: 'Vila Nova',
+    street: 'Rua das Flores',
+    reference: 'Próximo à esquina',
     status: Status.Aberto,
     image: 'https://picsum.photos/400',
     userId: 2
@@ -50,7 +54,8 @@ const occurrences = [
     title: 'Bueiro entupido na esquina',
     description:
       'O bueiro na esquina da Rua das Flores está entupido e causando alagamentos.',
-    location: 'Esquina da Rua das Flores',
+    neighborhood: 'Jardim América',
+    street: 'Avenida Central',
     status: Status.Andamento,
     image: 'https://picsum.photos/400',
     userId: 1
@@ -60,7 +65,9 @@ const occurrences = [
     title: 'Passeio com buracos na Avenida Central',
     description:
       'Os buracos no passeio estão representando um perigo para os pedestres.',
-    location: 'Avenida Central, 500',
+    neighborhood: 'Jardim Botânico',
+    street: 'Rua das Árvores',
+    reference: 'Próximo à escola',
     status: Status.Aberto,
     image: 'https://picsum.photos/400',
     userId: 3
@@ -70,7 +77,8 @@ const occurrences = [
     title: 'Falta de coleta de lixo na Vila dos Pássaros',
     description:
       'O caminhão de lixo não passa pela Vila dos Pássaros há uma semana.',
-    location: 'Vila dos Pássaros',
+    neighborhood: 'Parque Industrial',
+    street: 'Rua dos Industriais',
     status: Status.Andamento,
     image: 'https://picsum.photos/400',
     userId: 2
