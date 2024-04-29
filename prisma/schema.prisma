@@ -8,19 +8,44 @@ datasource db {
 }
 
 model User {
-    id        Int      @id @default(autoincrement())
-    name      String   @db.VarChar(255)
-    email     String   @unique
-    password  String   @db.VarChar(255)
-    role      Role
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt
+    id         Int          @id @default(autoincrement())
+    name       String       @db.VarChar(255)
+    email      String       @unique
+    password   String       @db.VarChar(255)
+    role       Role
+    createdAt  DateTime     @default(now()) @map(name: "created_at")
+    updatedAt  DateTime     @updatedAt @map(name: "updated_at")
+    Occurrence Occurrence[]
 
     @@map(name: "users")
+}
+
+model Occurrence {
+    id           Int      @id @default(autoincrement())
+    title        String   @db.VarChar(127)
+    description  String   @db.VarChar(255)
+    neighborhood String   @db.VarChar(255)
+    street       String   @db.VarChar(255)
+    reference    String?  @default("") @db.VarChar(255)
+    status       Status
+    image        String   @db.VarChar(255)
+    userId       Int      @map(name: "user_id")
+    createdAt    DateTime @default(now()) @map(name: "created_at")
+    updatedAt    DateTime @updatedAt @map(name: "updated_at")
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@map(name: "occurrences")
 }
 
 enum Role {
     user
     employee
     admin
+}
+
+enum Status {
+    Aberto
+    Finalizado
+    Andamento
 }
