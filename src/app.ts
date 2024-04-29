@@ -16,4 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
+app.get('/', (_req, res) =>
+  res.send(`Servidor ativo 🟢 - Rodando na porta ${process.env.API_PORT}!`)
+);
+
 export default app;
