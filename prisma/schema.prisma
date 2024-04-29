@@ -19,6 +19,9 @@ model User {
     @@map(name: "users")
 }
 
+model Occurrence {
+}
+
 enum Role {
     user
     employee
