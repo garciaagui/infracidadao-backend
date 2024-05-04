@@ -1,5 +1,8 @@
 import { PrismaClient, User } from '@prisma/client';
 import * as e from '../exceptions';
+import { comparePasswords } from '../libs/bcriptjs';
+import { generateToken } from '../libs/jwt';
+import { validateLogin } from '../validations';
 
 export default class UserService {
   private model: PrismaClient;
@@ -22,5 +25,20 @@ export default class UserService {
     }
 
     return user;
+  }
+
+  public async login(loginEmail: string, loginPassword: string) {
+    validateLogin(loginEmail, loginPassword);
+
+    const { password, ...user } = await this.findByEmail(loginEmail);
+    const isValidPassword = await comparePasswords(loginPassword, password);
+
+    if (!isValidPassword) {
+      throw new e.UnauthorizedException('Senha incorreta');
+    }
+
+    const token = generateToken(user.email);
+
+    return { token, user };
   }
 }
