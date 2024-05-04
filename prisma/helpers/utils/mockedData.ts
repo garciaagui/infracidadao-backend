@@ -5,21 +5,24 @@ const users = [
     id: 1,
     name: 'João Silva',
     email: 'joao@example.com',
-    password: '123456789',
+    password: '$2a$12$Y5A6LfbOspKyOp4yCFvAUutzoynEHUkS0neXCObTl8SOTt5TtXxwe',
+    // unhashed: '123456789'
     role: Role.admin
   },
   {
     id: 2,
     name: 'Maria Oliveira',
     email: 'maria@example.com',
-    password: '758961234',
+    password: '$2a$12$urjFcjIR5nPJ1Y/MYaIqXu1p9Y//VbhuQKmugxuFL8Hm1dzdHZhn6',
+    // unhashed: '758961234'
     role: Role.employee
   },
   {
     id: 3,
     name: 'Carlos Santos',
     email: 'carlos@example.com',
-    password: '5031498720',
+    password: '$2a$12$KYs9rCDu/eggg9BIRKz9Ke0a6gthYJTIdbbwiveFT8SewrYzN42YW',
+    // unhashed: '5031498720'
     role: Role.user
   }
 ];
