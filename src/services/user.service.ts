@@ -1,5 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
-
+//
 export default class UserService {
   private model: PrismaClient;
 
