@@ -17,4 +17,15 @@ export default class UserController {
       next(error);
     }
   }
+
+  public async login(req: Request, res: Response, next: NextFunction) {
+    const { email, password } = req.body;
+
+    try {
+      const data = await this.service.login(email, password);
+      return res.status(200).json({ message: 'Login bem-sucedido!', data });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
