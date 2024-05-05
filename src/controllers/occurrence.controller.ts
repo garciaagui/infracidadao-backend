@@ -9,6 +9,17 @@ export default class OccurrenceController {
     this.service = new OccurrenceService(prisma);
   }
 
+  public async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const created = await this.service.create({ ...req.body });
+      return res
+        .status(201)
+        .json({ message: 'Ocorrência criada!', occurrence: created });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async findAll(_req: Request, res: Response, next: NextFunction) {
     try {
       const occurrences = await this.service.findAll();
