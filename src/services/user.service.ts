@@ -39,6 +39,6 @@ export default class UserService {
 
     const token = generateToken(user.email);
 
-    return { token, user };
+    return { accessToken: token, user };
   }
 }
