@@ -1,5 +1,7 @@
 import joi from 'joi';
 
+const createOccurrenceSchema = joi.object({});
+
 const loginSchema = joi.object({
   email: joi.string().email().required().messages({
     'any.required': 'Campo de e-mail não pode ser vazio',
@@ -15,4 +17,4 @@ const loginSchema = joi.object({
   })
 });
 
-export { loginSchema };
+export { createOccurrenceSchema, loginSchema };
