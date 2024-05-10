@@ -11,8 +11,11 @@ export default class OccurrenceController {
   }
 
   public async create(req: Request, res: Response, next: NextFunction) {
+    const textData = req.body;
+    const fileData = req.files as Express.Multer.File[];
+
     try {
-      const created = await this.service.create({ ...req.body });
+      const created = await this.service.create(textData, fileData);
       return res
         .status(201)
         .json({ message: 'Ocorrência criada!', occurrence: created });
