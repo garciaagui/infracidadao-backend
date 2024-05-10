@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const occurrenceSchema = joi.object({
+const occurrenceCreationSchema = joi.object({
   title: joi.string().min(10).max(127).required().messages({
     'any.required': 'Campo título não pode ser vazio',
     'string.empty': 'Campo título não pode ser vazio',
@@ -28,6 +28,15 @@ const occurrenceSchema = joi.object({
     'string.empty': 'Campo referência não pode ser vazio',
     'string.base': 'Referência precisa ser do tipo string'
   }),
+  userId: joi.number().integer().required().messages({
+    'any.required': 'Campo id de usuário não pode ser vazio',
+    'number.empty': 'Campo id de usuário não pode ser vazio',
+    'number.base': 'Id de usuário deve ser um número inteiro',
+    'number.integer': 'Id de usuário deve ser um número inteiro'
+  })
+});
+
+const occurrenceSchema = occurrenceCreationSchema.keys({
   status: joi.string().valid('Aberto').required().messages({
     'any.required': 'Campo status não pode ser vazio',
     'any.only': `Valor de status inválido. Novas ocorrências só podem ter 'Aberto' como status inicial`
@@ -36,12 +45,6 @@ const occurrenceSchema = joi.object({
     'any.required': 'Campo URL de imagem não pode ser vazio',
     'string.empty': 'Campo URL de imagem não pode ser vazio',
     'string.base': 'URL de imagem precisa ser do tipo string'
-  }),
-  userId: joi.number().integer().required().messages({
-    'any.required': 'Campo id de usuário não pode ser vazio',
-    'number.empty': 'Campo id de usuário não pode ser vazio',
-    'number.base': 'Id de usuário deve ser um número inteiro',
-    'number.integer': 'Id de usuário deve ser um número inteiro'
   })
 });
 
@@ -60,4 +63,4 @@ const loginSchema = joi.object({
   })
 });
 
-export { loginSchema, occurrenceSchema };
+export { loginSchema, occurrenceCreationSchema, occurrenceSchema };
