@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import multer from 'multer';
 import OccurrenceController from '../controllers/occurrence.controller';
+import multerMiddleware from '../middlewares/multerMiddleware';
 
 const routers = Router();
 const controller = new OccurrenceController();
-
-const multerMiddleware = multer();
 
 routers.post('/', multerMiddleware.any(), (res, req, next) =>
   controller.create(res, req, next)
