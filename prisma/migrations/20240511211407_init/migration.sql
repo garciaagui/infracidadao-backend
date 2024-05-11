@@ -24,7 +24,7 @@ CREATE TABLE "occurrences" (
     "description" VARCHAR(255) NOT NULL,
     "street" VARCHAR(255) NOT NULL,
     "neighborhood" VARCHAR(255) NOT NULL,
-    "zip_code" CHAR(8) NOT NULL,
+    "zip_code" CHAR(10) NOT NULL,
     "reference" VARCHAR(255) DEFAULT '',
     "status" "Status" NOT NULL,
     "image" VARCHAR(255) NOT NULL,
