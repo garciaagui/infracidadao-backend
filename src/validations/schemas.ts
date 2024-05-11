@@ -24,6 +24,12 @@ const occurrenceCreationSchema = joi.object({
     'string.empty': 'Campo rua não pode ser vazio',
     'string.base': 'Rua precisa ser do tipo string'
   }),
+  zipCode: joi.string().length(10).required().messages({
+    'any.required': 'Campo CEP não pode ser vazio',
+    'string.empty': 'Campo CEP não pode ser vazio',
+    'string.base': 'CEP precisa ser do tipo string',
+    'string.length': 'CEP deve ter exatamente 8 dígitos'
+  }), // Embora o necessário seja 8 dígitos, consideramos 10 por conta do ponto e traço. Exemplo: 18.540-000.
   reference: joi.string().messages({
     'string.empty': 'Campo referência não pode ser vazio',
     'string.base': 'Referência precisa ser do tipo string'
