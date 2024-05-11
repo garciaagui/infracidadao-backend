@@ -26,7 +26,7 @@ model Occurrence {
     description  String   @db.VarChar(255)
     street       String   @db.VarChar(255)
     neighborhood String   @db.VarChar(255)
-    zipCode      String   @map(name: "zip_code") @db.Char(8)
+    zipCode      String   @map(name: "zip_code") @db.Char(10)
     reference    String?  @default("") @db.VarChar(255)
     status       Status
     image        String   @db.VarChar(255)
