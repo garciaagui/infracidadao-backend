@@ -35,7 +35,8 @@ const occurrences = [
     reference: 'Em frente ao estacionamento da praça',
     status: Status.Finalizado,
     image: 'https://picsum.photos/400',
-    userId: 1
+    userId: 1,
+    createdAt: new Date('2024-01-01T12:00:00')
   },
   {
     title: 'Lâmpada queimada no parque',
@@ -47,7 +48,8 @@ const occurrences = [
     reference: 'Próximo à esquina',
     status: Status.Aberto,
     image: 'https://picsum.photos/400',
-    userId: 2
+    userId: 2,
+    createdAt: new Date('2024-01-02T10:00:00')
   },
   {
     title: 'Bueiro entupido na esquina',
@@ -58,7 +60,8 @@ const occurrences = [
     zipCode: '12.398-501',
     status: Status.Andamento,
     image: 'https://picsum.photos/400',
-    userId: 1
+    userId: 1,
+    createdAt: new Date('2024-01-03T08:00:00')
   },
   {
     title: 'Passeio com buracos na Avenida Central',
@@ -70,7 +73,8 @@ const occurrences = [
     reference: 'Próximo à escola',
     status: Status.Aberto,
     image: 'https://picsum.photos/400',
-    userId: 3
+    userId: 3,
+    createdAt: new Date('2024-01-04T15:00:00')
   },
   {
     title: 'Falta de coleta de lixo na Vila dos Pássaros',
@@ -81,7 +85,8 @@ const occurrences = [
     zipCode: '00.150-658',
     status: Status.Andamento,
     image: 'https://picsum.photos/400',
-    userId: 2
+    userId: 2,
+    createdAt: new Date('2024-01-05T14:30:00')
   }
 ];
 
