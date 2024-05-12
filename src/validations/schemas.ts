@@ -69,4 +69,18 @@ const loginSchema = joi.object({
   })
 });
 
-export { loginSchema, occurrenceCreationSchema, occurrenceSchema };
+const userCreationSchema = loginSchema.keys({
+  name: joi.string().min(10).required().messages({
+    'any.required': 'Campo de nome não pode ser vazio',
+    'string.empty': 'Campo de nome não pode ser vazio',
+    'string.base': 'Nome precisa ser do tipo string',
+    'string.min': 'O nome precisa ter no mínimo 10 caracteres'
+  })
+});
+
+export {
+  loginSchema,
+  occurrenceCreationSchema,
+  occurrenceSchema,
+  userCreationSchema
+};
