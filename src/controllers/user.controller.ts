@@ -9,6 +9,17 @@ export default class UserController {
     this.service = new UserService(prisma);
   }
 
+  public async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const createdUser = await this.service.create({ ...req.body });
+      return res
+        .status(201)
+        .json({ message: 'Usuário criado!', user: createdUser });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async findAll(_req: Request, res: Response, next: NextFunction) {
     try {
       const users = await this.service.findAll();
