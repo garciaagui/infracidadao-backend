@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import * as e from '../exceptions';
-import { OccurrenceCreationType } from '../services/utils/types';
+import * as T from '../services/utils/types';
 import * as s from './schemas';
 
 const validateLogin = (email: string, password: string) => {
@@ -11,7 +11,7 @@ const validateLogin = (email: string, password: string) => {
   }
 };
 
-const validateOccurrenceCreation = (data: OccurrenceCreationType) => {
+const validateOccurrenceCreation = (data: T.OccurrenceCreationType) => {
   const { error } = s.occurrenceCreationSchema.validate(data);
 
   if (error) {
@@ -29,4 +29,17 @@ const validateOccurrence = (
   }
 };
 
-export { validateLogin, validateOccurrence, validateOccurrenceCreation };
+const validateUserCreation = (data: T.UserCreationType) => {
+  const { error } = s.userCreationSchema.validate(data);
+
+  if (error) {
+    throw new e.BadRequestException(error.message);
+  }
+};
+
+export {
+  validateLogin,
+  validateOccurrence,
+  validateOccurrenceCreation,
+  validateUserCreation
+};

@@ -7,3 +7,9 @@ export type OccurrenceCreationType = {
   reference?: string | null | undefined;
   userId: number;
 };
+
+export type UserCreationType = {
+  name: string;
+  email: string;
+  password: string;
+};

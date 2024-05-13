@@ -1,8 +1,10 @@
 import { PrismaClient, User } from '@prisma/client';
 import * as e from '../exceptions';
-import { comparePasswords } from '../libs/bcriptjs';
+import { comparePasswords, generateHashedPassword } from '../libs/bcriptjs';
 import { generateToken } from '../libs/jwt';
-import { validateLogin } from '../validations';
+import { validateLogin, validateUserCreation } from '../validations';
+import { userSelectedFields } from './utils/constants';
+import { UserCreationType } from './utils/types';
 
 export default class UserService {
   private model: PrismaClient;
@@ -25,6 +27,28 @@ export default class UserService {
     }
 
     return user;
+  }
+
+  private async checkUserExistence(email: string): Promise<void> {
+    const user = await this.model.user.findUnique({ where: { email } });
+
+    if (user) {
+      throw new e.ConflictException('E-mail já registrado');
+    }
+  }
+
+  public async create(data: UserCreationType): Promise<Omit<User, 'password'>> {
+    validateUserCreation(data);
+
+    await this.checkUserExistence(data.email);
+
+    const hashedPassword = await generateHashedPassword(data.password);
+    const createdUser = await this.model.user.create({
+      data: { ...data, password: hashedPassword, role: 'user' },
+      select: { ...userSelectedFields }
+    });
+
+    return createdUser;
   }
 
   public async login(loginEmail: string, loginPassword: string) {
