@@ -3,6 +3,14 @@ import * as e from '../exceptions';
 import * as T from '../services/utils/types';
 import * as s from './schemas';
 
+const validateId = (id: number) => {
+  const { error } = s.idSchema.validate({ id });
+
+  if (error) {
+    throw new e.BadRequestException('Id deve ser um número inteiro');
+  }
+};
+
 const validateLogin = (email: string, password: string) => {
   const { error } = s.loginSchema.validate({ email, password });
 
@@ -38,6 +46,7 @@ const validateUserCreation = (data: T.UserCreationType) => {
 };
 
 export {
+  validateId,
   validateLogin,
   validateOccurrence,
   validateOccurrenceCreation,
