@@ -5,6 +5,7 @@ const routers = Router();
 const controller = new UserController();
 
 routers.get('/', (res, req, next) => controller.findAll(res, req, next));
+routers.get('/:id', (res, req, next) => controller.findById(res, req, next));
 routers.post('/register', (res, req, next) =>
   controller.create(res, req, next)
 );
