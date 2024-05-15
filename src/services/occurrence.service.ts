@@ -3,9 +3,9 @@ import { S3 } from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import { randomBytes } from 'crypto';
 import * as env from 'dotenv';
-import * as e from '../exceptions';
-import { OccurrenceCreationType } from '../services/utils/types';
-import * as v from '../validations';
+import * as E from '../exceptions';
+import * as T from '../services/utils/types';
+import * as V from '../validations';
 
 env.config();
 
@@ -28,7 +28,7 @@ export default class OccurrenceService {
     try {
       await this.s3.upload(params).promise();
     } catch (error) {
-      throw new e.BadRequestException('Erro no upload da imagem');
+      throw new E.BadRequestException('Erro no upload da imagem');
     }
   }
 
@@ -46,10 +46,10 @@ export default class OccurrenceService {
   };
 
   public async create(
-    textData: OccurrenceCreationType,
+    textData: T.OccurrenceCreationType,
     fileData: Express.Multer.File[]
   ): Promise<Occurrence> {
-    v.validateOccurrenceCreation(textData);
+    V.validateOccurrenceCreation(textData);
 
     const { buffer, originalname } = fileData[0];
     const imageName = this.generateUniqueFileName(originalname);
@@ -64,7 +64,7 @@ export default class OccurrenceService {
       userId: Number(textData.userId)
     };
 
-    v.validateOccurrence(creationData);
+    V.validateOccurrence(creationData);
 
     const created = await this.model.occurrence.create({
       data: { ...creationData }
@@ -80,18 +80,38 @@ export default class OccurrenceService {
   }
 
   public async findById(id: number): Promise<Occurrence> {
-    v.validateId(id);
+    V.validateId(id);
 
     const occurrence = await this.model.occurrence.findUnique({
       where: { id }
     });
 
     if (!occurrence) {
-      throw new e.NotFoundException(
+      throw new E.NotFoundException(
         'Nenhuma Occurrence encontrada com esse Id'
       );
     }
 
     return occurrence;
+  }
+
+  public async updateStatus(
+    id: number,
+    newStatus: T.StatusUpdateType
+  ): Promise<Occurrence> {
+    V.validateId(id);
+
+    const { status: currentStatus } = await this.findById(id);
+
+    V.validateOccurrenceStatusUpdate(currentStatus, newStatus);
+
+    const updatedOccurrence = await this.model.occurrence.update({
+      where: { id },
+      data: {
+        status: newStatus
+      }
+    });
+
+    return updatedOccurrence;
   }
 }
