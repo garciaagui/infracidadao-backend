@@ -29,6 +29,17 @@ export default class UserController {
     }
   }
 
+  public async findById(req: Request, res: Response, next: NextFunction) {
+    const id = Number(req.params.id);
+
+    try {
+      const user = await this.service.findById(id);
+      return res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async login(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
 
