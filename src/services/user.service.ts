@@ -2,7 +2,7 @@ import { PrismaClient, User } from '@prisma/client';
 import * as e from '../exceptions';
 import { comparePasswords, generateHashedPassword } from '../libs/bcriptjs';
 import { generateToken } from '../libs/jwt';
-import { validateLogin, validateUserCreation } from '../validations';
+import * as v from '../validations';
 import { userSelectedFields } from './utils/constants';
 import { UserCreationType } from './utils/types';
 
@@ -17,6 +17,21 @@ export default class UserService {
     const users = await this.model.user.findMany({});
 
     return users;
+  }
+
+  public async findById(id: number): Promise<Omit<User, 'password'>> {
+    v.validateId(id);
+
+    const user = await this.model.user.findUnique({
+      where: { id },
+      select: { ...userSelectedFields }
+    });
+
+    if (!user) {
+      throw new e.NotFoundException('Nenhum usuário encontrado com esse Id');
+    }
+
+    return user;
   }
 
   private async findByEmail(email: string): Promise<User> {
@@ -38,7 +53,7 @@ export default class UserService {
   }
 
   public async create(data: UserCreationType): Promise<Omit<User, 'password'>> {
-    validateUserCreation(data);
+    v.validateUserCreation(data);
 
     await this.checkUserExistence(data.email);
 
@@ -52,7 +67,7 @@ export default class UserService {
   }
 
   public async login(loginEmail: string, loginPassword: string) {
-    validateLogin(loginEmail, loginPassword);
+    v.validateLogin(loginEmail, loginPassword);
 
     const { password, ...user } = await this.findByEmail(loginEmail);
     const isValidPassword = await comparePasswords(loginPassword, password);
