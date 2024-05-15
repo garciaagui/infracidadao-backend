@@ -21,6 +21,13 @@ const users = [
     password: '$2a$12$KYs9rCDu/eggg9BIRKz9Ke0a6gthYJTIdbbwiveFT8SewrYzN42YW',
     // unhashed: '5031498720'
     role: Role.user
+  },
+  {
+    name: 'Ana Moares',
+    email: 'ana@example.com',
+    password: '$2a$12$g/0yx6eToVec0xHqEWqquOVWhoi4cEhRRXmy.G0Fv.4hP02OrvA4q',
+    // unhashed: 'abcdefghijk'
+    role: Role.user
   }
 ];
 
@@ -34,8 +41,9 @@ const occurrences = [
     zipCode: '25.689-420',
     reference: 'Em frente ao estacionamento da praça',
     status: Status.Finalizado,
-    image: 'https://picsum.photos/400',
-    userId: 1,
+    image:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/vazamento-agua.jpg',
+    userId: 3,
     createdAt: new Date('2024-01-01T12:00:00')
   },
   {
@@ -47,8 +55,9 @@ const occurrences = [
     zipCode: '56.812-350',
     reference: 'Próximo à esquina',
     status: Status.Aberto,
-    image: 'https://picsum.photos/400',
-    userId: 2,
+    image:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/lampada-queimada.jpg',
+    userId: 4,
     createdAt: new Date('2024-01-02T10:00:00')
   },
   {
@@ -59,8 +68,9 @@ const occurrences = [
     street: 'Avenida Central',
     zipCode: '12.398-501',
     status: Status.Andamento,
-    image: 'https://picsum.photos/400',
-    userId: 1,
+    image:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/bueiro-entupido.jpeg',
+    userId: 4,
     createdAt: new Date('2024-01-03T08:00:00')
   },
   {
@@ -72,7 +82,8 @@ const occurrences = [
     zipCode: '98.145-710',
     reference: 'Próximo à escola',
     status: Status.Aberto,
-    image: 'https://picsum.photos/400',
+    image:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/passeio-buracos.jpg',
     userId: 3,
     createdAt: new Date('2024-01-04T15:00:00')
   },
@@ -84,8 +95,9 @@ const occurrences = [
     street: 'Rua dos Industriais',
     zipCode: '00.150-658',
     status: Status.Andamento,
-    image: 'https://picsum.photos/400',
-    userId: 2,
+    image:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/coleta-lixo.jpg',
+    userId: 3,
     createdAt: new Date('2024-01-05T14:30:00')
   }
 ];
