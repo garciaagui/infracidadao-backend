@@ -1,5 +1,9 @@
 import joi from 'joi';
 
+const idSchema = joi.object({
+  id: joi.number().integer().min(1).required()
+});
+
 const occurrenceCreationSchema = joi.object({
   title: joi.string().min(10).max(127).required().messages({
     'any.required': 'Campo título não pode ser vazio',
@@ -79,6 +83,7 @@ const userCreationSchema = loginSchema.keys({
 });
 
 export {
+  idSchema,
   loginSchema,
   occurrenceCreationSchema,
   occurrenceSchema,

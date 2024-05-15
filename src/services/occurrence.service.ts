@@ -5,7 +5,7 @@ import { randomBytes } from 'crypto';
 import * as env from 'dotenv';
 import * as e from '../exceptions';
 import { OccurrenceCreationType } from '../services/utils/types';
-import { validateOccurrence, validateOccurrenceCreation } from '../validations';
+import * as v from '../validations';
 
 env.config();
 
@@ -49,7 +49,7 @@ export default class OccurrenceService {
     textData: OccurrenceCreationType,
     fileData: Express.Multer.File[]
   ): Promise<Occurrence> {
-    validateOccurrenceCreation(textData);
+    v.validateOccurrenceCreation(textData);
 
     const { buffer, originalname } = fileData[0];
     const imageName = this.generateUniqueFileName(originalname);
@@ -64,7 +64,7 @@ export default class OccurrenceService {
       userId: Number(textData.userId)
     };
 
-    validateOccurrence(creationData);
+    v.validateOccurrence(creationData);
 
     const created = await this.model.occurrence.create({
       data: { ...creationData }
@@ -77,5 +77,21 @@ export default class OccurrenceService {
     const occurrences = await this.model.occurrence.findMany({});
 
     return occurrences;
+  }
+
+  public async findById(id: number): Promise<Occurrence> {
+    v.validateId(id);
+
+    const occurrence = await this.model.occurrence.findUnique({
+      where: { id }
+    });
+
+    if (!occurrence) {
+      throw new e.NotFoundException(
+        'Nenhuma Occurrence encontrada com esse Id'
+      );
+    }
+
+    return occurrence;
   }
 }

@@ -32,4 +32,15 @@ export default class OccurrenceController {
       next(error);
     }
   }
+
+  public async findById(req: Request, res: Response, next: NextFunction) {
+    const id = Number(req.params.id);
+
+    try {
+      const occurrences = await this.service.findById(id);
+      return res.status(200).json(occurrences);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
