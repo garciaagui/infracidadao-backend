@@ -13,8 +13,10 @@ export default class UserService {
     this.model = model;
   }
 
-  public async findAll(): Promise<User[]> {
-    const users = await this.model.user.findMany({});
+  public async findAll(): Promise<Omit<User, 'password'>[]> {
+    const users = await this.model.user.findMany({
+      select: { ...userSelectedFields }
+    });
 
     return users;
   }
