@@ -3,7 +3,7 @@ import * as e from '../exceptions';
 import * as T from '../services/utils/types';
 import * as s from './schemas';
 
-const validateId = (id: number) => {
+export const validateId = (id: number) => {
   const { error } = s.idSchema.validate({ id });
 
   if (error) {
@@ -11,7 +11,7 @@ const validateId = (id: number) => {
   }
 };
 
-const validateLogin = (email: string, password: string) => {
+export const validateLogin = (email: string, password: string) => {
   const { error } = s.loginSchema.validate({ email, password });
 
   if (error) {
@@ -19,7 +19,7 @@ const validateLogin = (email: string, password: string) => {
   }
 };
 
-const validateOccurrenceCreation = (data: T.OccurrenceCreationType) => {
+export const validateOccurrenceCreation = (data: T.OccurrenceCreationType) => {
   const { error } = s.occurrenceCreationSchema.validate(data);
 
   if (error) {
@@ -27,7 +27,28 @@ const validateOccurrenceCreation = (data: T.OccurrenceCreationType) => {
   }
 };
 
-const validateOccurrence = (
+export const validateOccurrenceStatusUpdate = (
+  currentStatus: string,
+  newStatus: string
+) => {
+  const acceptedValues = ['Andamento', 'Finalizado'];
+
+  if (currentStatus === 'Finalizado') {
+    throw new e.BadRequestException('Occurrence já finalizada');
+  }
+
+  if (!acceptedValues.includes(newStatus)) {
+    throw new e.BadRequestException(
+      'Status inválido. Valores aceitos na atualização: `Andamento` ou `Finalizado`'
+    );
+  }
+
+  if (currentStatus === newStatus) {
+    throw new e.BadRequestException('Novo status é igual ao status atual');
+  }
+};
+
+export const validateOccurrence = (
   data: Omit<Prisma.OccurrenceCreateInput, 'user'>
 ) => {
   const { error } = s.occurrenceSchema.validate(data);
@@ -37,18 +58,10 @@ const validateOccurrence = (
   }
 };
 
-const validateUserCreation = (data: T.UserCreationType) => {
+export const validateUserCreation = (data: T.UserCreationType) => {
   const { error } = s.userCreationSchema.validate(data);
 
   if (error) {
     throw new e.BadRequestException(error.message);
   }
-};
-
-export {
-  validateId,
-  validateLogin,
-  validateOccurrence,
-  validateOccurrenceCreation,
-  validateUserCreation
 };
