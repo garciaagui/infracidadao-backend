@@ -11,5 +11,8 @@ routers.post('/', multerMiddleware.any(), (res, req, next) =>
 
 routers.get('/', (res, req, next) => controller.findAll(res, req, next));
 routers.get('/:id', (res, req, next) => controller.findById(res, req, next));
+routers.patch('/:id/update-status', (res, req, next) =>
+  controller.updateStatus(res, req, next)
+);
 
 export default routers;
