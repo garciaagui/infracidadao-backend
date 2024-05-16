@@ -39,6 +39,9 @@ model Occurrence {
     @@map(name: "occurrences")
 }
 
+model OccurrenceReply {
+}
+
 enum Role {
     user
     employee
