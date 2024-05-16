@@ -8,6 +8,12 @@ export type OccurrenceCreationType = {
   userId: number;
 };
 
+export type OccurrenceReplyCreationType = {
+  description: string;
+  userId: number;
+  occurrenceId: number;
+};
+
 export type StatusUpdateType = 'Andamento' | 'Finalizado';
 
 export type UserCreationType = {
