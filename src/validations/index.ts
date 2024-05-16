@@ -58,6 +58,26 @@ export const validateOccurrence = (
   }
 };
 
+export const validateOccurrenceReplyCreation = (
+  data: T.OccurrenceReplyCreationType
+) => {
+  const { error } = s.occurrenceReplyCreationSchema.validate(data);
+
+  if (error) {
+    throw new e.BadRequestException(error.message);
+  }
+};
+
+export const validateOccurrenceReply = (
+  data: Omit<Prisma.OccurrenceReplyCreateInput, 'user' | 'occurrence'>
+) => {
+  const { error } = s.occurrenceReplySchema.validate(data);
+
+  if (error) {
+    throw new e.BadRequestException(error.message);
+  }
+};
+
 export const validateUserCreation = (data: T.UserCreationType) => {
   const { error } = s.userCreationSchema.validate(data);
 

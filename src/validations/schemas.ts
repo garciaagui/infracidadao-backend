@@ -1,10 +1,10 @@
 import joi from 'joi';
 
-const idSchema = joi.object({
+export const idSchema = joi.object({
   id: joi.number().integer().min(1).required()
 });
 
-const occurrenceCreationSchema = joi.object({
+export const occurrenceCreationSchema = joi.object({
   title: joi.string().min(10).max(127).required().messages({
     'any.required': 'Campo título não pode ser vazio',
     'string.empty': 'Campo título não pode ser vazio',
@@ -46,7 +46,7 @@ const occurrenceCreationSchema = joi.object({
   })
 });
 
-const occurrenceSchema = occurrenceCreationSchema.keys({
+export const occurrenceSchema = occurrenceCreationSchema.keys({
   status: joi.string().valid('Aberto').required().messages({
     'any.required': 'Campo status não pode ser vazio',
     'any.only': `Valor de status inválido. Novas ocorrências só podem ter 'Aberto' como status inicial`
@@ -58,7 +58,35 @@ const occurrenceSchema = occurrenceCreationSchema.keys({
   })
 });
 
-const loginSchema = joi.object({
+export const occurrenceReplyCreationSchema = joi.object({
+  description: joi.string().min(40).max(255).required().messages({
+    'any.required': 'Campo descrição não pode ser vazia',
+    'string.empty': 'Campo descrição não pode ser vazia',
+    'string.base': 'Descrição precisa ser do tipo string',
+    'string.min': 'A descrição precisa ter no mínimo 40 caracteres'
+  }),
+  userId: joi.number().integer().required().messages({
+    'any.required': 'Campo id de usuário não pode ser vazio',
+    'number.empty': 'Campo id de usuário não pode ser vazio',
+    'number.base': 'Id de usuário deve ser um número inteiro',
+    'number.integer': 'Id de usuário deve ser um número inteiro'
+  }),
+  occurrenceId: joi.number().integer().required().messages({
+    'any.required': 'Campo id de occurrence não pode ser vazio',
+    'number.empty': 'Campo id de occurrence não pode ser vazio',
+    'number.base': 'Id de occurrence deve ser um número inteiro',
+    'number.integer': 'Id de occurrence deve ser um número inteiro'
+  })
+});
+
+export const occurrenceReplySchema = occurrenceReplyCreationSchema.keys({
+  imageUrl: joi.string().messages({
+    'string.empty': 'Campo URL de imagem não pode ser vazio',
+    'string.base': 'URL de imagem precisa ser do tipo string'
+  })
+});
+
+export const loginSchema = joi.object({
   email: joi.string().email().required().messages({
     'any.required': 'Campo de e-mail não pode ser vazio',
     'string.empty': 'Campo de e-mail não pode ser vazio',
@@ -73,7 +101,7 @@ const loginSchema = joi.object({
   })
 });
 
-const userCreationSchema = loginSchema.keys({
+export const userCreationSchema = loginSchema.keys({
   name: joi.string().min(10).required().messages({
     'any.required': 'Campo de nome não pode ser vazio',
     'string.empty': 'Campo de nome não pode ser vazio',
@@ -81,11 +109,3 @@ const userCreationSchema = loginSchema.keys({
     'string.min': 'O nome precisa ter no mínimo 10 caracteres'
   })
 });
-
-export {
-  idSchema,
-  loginSchema,
-  occurrenceCreationSchema,
-  occurrenceSchema,
-  userCreationSchema
-};
