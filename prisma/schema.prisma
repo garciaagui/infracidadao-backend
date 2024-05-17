@@ -35,8 +35,8 @@ model Occurrence {
     createdAt    DateTime @default(now()) @map(name: "created_at")
     updatedAt    DateTime @updatedAt @map(name: "updated_at")
 
-    user            User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    OccurrenceReply OccurrenceReply[]
+    user              User              @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    occurrenceReplies OccurrenceReply[]
 
     @@map(name: "occurrences")
 }
