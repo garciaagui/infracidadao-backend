@@ -80,7 +80,7 @@ export const occurrenceReplyCreationSchema = joi.object({
 });
 
 export const occurrenceReplySchema = occurrenceReplyCreationSchema.keys({
-  imageUrl: joi.string().messages({
+  imageUrl: joi.string().allow('').messages({
     'string.empty': 'Campo URL de imagem não pode ser vazio',
     'string.base': 'URL de imagem precisa ser do tipo string'
   })
