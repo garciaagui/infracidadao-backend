@@ -6,6 +6,7 @@ import * as env from 'dotenv';
 import * as E from '../exceptions';
 import * as T from '../services/utils/types';
 import * as V from '../validations';
+import { userSelectedFields } from './utils/constants';
 
 env.config();
 
@@ -83,7 +84,15 @@ export default class OccurrenceService {
     V.validateId(id);
 
     const occurrence = await this.model.occurrence.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        user: {
+          select: {
+            ...userSelectedFields
+          }
+        },
+        occurrenceReplies: true
+      }
     });
 
     if (!occurrence) {
