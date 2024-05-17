@@ -62,7 +62,7 @@ export default class OccurrenceReplyService {
     let imageUrl = '';
     V.validateOccurrenceReplyCreation(textData);
 
-    if (fileData) {
+    if (fileData?.length) {
       imageUrl = await this.handleImageUpload(fileData);
     }
 
