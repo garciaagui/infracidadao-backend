@@ -81,4 +81,20 @@ export default class OccurrenceReplyService {
 
     return created;
   }
+
+  public async findByOccurrenceId(
+    occurrenceId: number
+  ): Promise<OccurrenceReply[]> {
+    V.validateId(occurrenceId);
+
+    const replies = await this.model.occurrenceReply.findMany({
+      where: { occurrenceId }
+    });
+
+    if (!replies || !replies.length) {
+      throw new E.NotFoundException('Nenhum Reply com esse Id de Occurrence');
+    }
+
+    return replies;
+  }
 }
