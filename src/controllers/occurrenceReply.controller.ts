@@ -23,4 +23,19 @@ export default class OccurrenceReplyController {
       next(error);
     }
   }
+
+  public async findByOccurrenceId(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const id = Number(req.params.id);
+
+    try {
+      const occurrences = await this.service.findByOccurrenceId(id);
+      return res.status(200).json(occurrences);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
