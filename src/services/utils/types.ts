@@ -1,3 +1,5 @@
+import { StatusUpdate } from '@prisma/client';
+
 export type OccurrenceCreationType = {
   title: string;
   description: string;
@@ -12,9 +14,8 @@ export type OccurrenceReplyCreationType = {
   description: string;
   userId: number;
   occurrenceId: number;
+  occurrenceStatus: StatusUpdate;
 };
-
-export type StatusUpdateType = 'Andamento' | 'Finalizado';
 
 export type UserCreationType = {
   name: string;

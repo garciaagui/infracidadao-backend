@@ -1,4 +1,4 @@
-import { Occurrence, PrismaClient, Status } from '@prisma/client';
+import { Occurrence, PrismaClient, Status, StatusUpdate } from '@prisma/client';
 import { S3 } from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import { randomBytes } from 'crypto';
@@ -91,7 +91,15 @@ export default class OccurrenceService {
             ...userSelectedFields
           }
         },
-        occurrenceReplies: true
+        occurrenceReplies: {
+          include: {
+            user: {
+              select: {
+                ...userSelectedFields
+              }
+            }
+          }
+        }
       }
     });
 
@@ -106,7 +114,7 @@ export default class OccurrenceService {
 
   public async updateStatus(
     id: number,
-    newStatus: T.StatusUpdateType
+    newStatus: StatusUpdate
   ): Promise<Occurrence> {
     V.validateId(id);
 
