@@ -1,4 +1,4 @@
-import { Role, Status } from '@prisma/client';
+import { Role, Status, StatusUpdate } from '@prisma/client';
 
 const users = [
   {
@@ -102,4 +102,40 @@ const occurrences = [
   }
 ];
 
-export default { users, occurrences };
+const occurrencesReplies = [
+  {
+    description: 'Problema localizado e o conserto foi agendado para amanhã.',
+    userId: 2,
+    occurrenceId: 1,
+    occurrenceStatus: StatusUpdate.Andamento,
+    createdAt: new Date('2024-01-06T00:00:00')
+  },
+  {
+    description:
+      'Após vazamento de água na rua principal, nossa equipe respondeu prontamente, localizou e reparou a fonte, com medidas preventivas para evitar recorrências. Priorizamos a rápida resolução para garantir o bem-estar da comunidade',
+    imageUrl:
+      'https://pub-373564433a1a4faebf35e76ccb084c38.r2.dev/conserto-vazamento-agua.jpg',
+    userId: 2,
+    occurrenceId: 1,
+    occurrenceStatus: StatusUpdate.Finalizado,
+    createdAt: new Date('2024-01-08T00:00:00')
+  },
+  {
+    description:
+      'A equipe de manutenção está trabalhando para resolver o problema.',
+    userId: 2,
+    occurrenceId: 3,
+    occurrenceStatus: StatusUpdate.Andamento,
+    createdAt: new Date('2024-01-05T00:00:00')
+  },
+  {
+    description:
+      'O departamento responsável foi informado e em breve traremos uma solução.',
+    userId: 2,
+    occurrenceId: 5,
+    occurrenceStatus: StatusUpdate.Andamento,
+    createdAt: new Date('2024-01-06T00:00:00')
+  }
+];
+
+export default { users, occurrences, occurrencesReplies };

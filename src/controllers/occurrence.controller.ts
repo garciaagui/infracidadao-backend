@@ -1,8 +1,8 @@
+import { StatusUpdate } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import awsS3 from '../libs/awsS3';
 import prisma from '../libs/prisma';
 import OccurrenceService from '../services/occurrence.service';
-import { StatusUpdateType } from '../services/utils/types';
 
 export default class OccurrenceController {
   private service: OccurrenceService;
@@ -47,7 +47,7 @@ export default class OccurrenceController {
 
   public async updateStatus(req: Request, res: Response, next: NextFunction) {
     const id = Number(req.params.id);
-    const status = req.body.status as StatusUpdateType;
+    const status = req.body.status as StatusUpdate;
 
     try {
       const occurrences = await this.service.updateStatus(id, status);

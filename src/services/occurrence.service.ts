@@ -1,4 +1,4 @@
-import { Occurrence, PrismaClient, Status } from '@prisma/client';
+import { Occurrence, PrismaClient, Status, StatusUpdate } from '@prisma/client';
 import { S3 } from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import { randomBytes } from 'crypto';
@@ -6,6 +6,7 @@ import * as env from 'dotenv';
 import * as E from '../exceptions';
 import * as T from '../services/utils/types';
 import * as V from '../validations';
+import { userSelectedFields } from './utils/constants';
 
 env.config();
 
@@ -83,7 +84,23 @@ export default class OccurrenceService {
     V.validateId(id);
 
     const occurrence = await this.model.occurrence.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        user: {
+          select: {
+            ...userSelectedFields
+          }
+        },
+        occurrenceReplies: {
+          include: {
+            user: {
+              select: {
+                ...userSelectedFields
+              }
+            }
+          }
+        }
+      }
     });
 
     if (!occurrence) {
@@ -97,7 +114,7 @@ export default class OccurrenceService {
 
   public async updateStatus(
     id: number,
-    newStatus: T.StatusUpdateType
+    newStatus: StatusUpdate
   ): Promise<Occurrence> {
     V.validateId(id);
 
