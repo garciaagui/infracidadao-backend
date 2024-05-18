@@ -1,3 +1,4 @@
+import { StatusUpdate } from '@prisma/client';
 import joi from 'joi';
 
 export const idSchema = joi.object({
@@ -76,7 +77,15 @@ export const occurrenceReplyCreationSchema = joi.object({
     'number.empty': 'Campo id de occurrence não pode ser vazio',
     'number.base': 'Id de occurrence deve ser um número inteiro',
     'number.integer': 'Id de occurrence deve ser um número inteiro'
-  })
+  }),
+  occurrenceStatus: joi
+    .string()
+    .valid(...Object.keys(StatusUpdate))
+    .required()
+    .messages({
+      'any.required': 'Campo status de occurrence não pode ser vazio',
+      'any.only': `Status inválido. Valores aceitos: ${Object.keys(StatusUpdate).join(', ')}`
+    })
 });
 
 export const occurrenceReplySchema = occurrenceReplyCreationSchema.keys({
