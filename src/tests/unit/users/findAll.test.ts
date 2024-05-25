@@ -24,7 +24,7 @@ describe('users - findAll', () => {
     });
   });
 
-  describe('casos de falha', () => {
+  describe('caso de falha', () => {
     it('deve lançar um erro quando nenhum usuário for encontrado', async () => {
       const errorMessage = 'Nenhum usuário encontrado';
       const service = new UserService(mockedPrisma);
