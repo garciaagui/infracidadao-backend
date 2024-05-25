@@ -76,7 +76,7 @@ export default class UserService {
     v.validateLogin(loginEmail, loginPassword);
 
     const { password, ...user } = await this.findByEmail(loginEmail);
-    const isValidPassword = await comparePasswords(loginPassword, password);
+    const isValidPassword = comparePasswords(loginPassword, password);
 
     if (!isValidPassword) {
       throw new e.UnauthorizedException('Senha incorreta');

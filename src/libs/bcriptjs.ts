@@ -5,11 +5,11 @@ const generateHashedPassword = async (password: string): Promise<string> => {
   return hashedPassword;
 };
 
-const comparePasswords = async (
+const comparePasswords = (
   inputPassword: string,
   dbPassword: string
-): Promise<boolean> => {
-  const comparision = await bcryptjs.compareSync(inputPassword, dbPassword);
+): boolean => {
+  const comparision = bcryptjs.compareSync(inputPassword, dbPassword);
   return comparision;
 };
 
