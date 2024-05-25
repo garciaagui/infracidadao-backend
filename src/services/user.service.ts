@@ -18,6 +18,10 @@ export default class UserService {
       select: { ...userSelectedFields }
     });
 
+    if (!users.length || !users) {
+      throw new e.NotFoundException('Nenhum usuário encontrado');
+    }
+
     return users;
   }
 
