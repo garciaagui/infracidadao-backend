@@ -6,7 +6,7 @@ import * as mockedData from './utils/mockedData';
 
 vi.mock('../helpers/prisma');
 
-describe('users - findAll', () => {
+describe('users - create', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
