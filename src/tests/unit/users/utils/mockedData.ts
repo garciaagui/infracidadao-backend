@@ -38,3 +38,17 @@ export const users = [
     updatedAt: new Date('2024-01-01T00:00:00.000Z')
   }
 ];
+
+export const token = 'mockedToken';
+
+export const loginResponse = {
+  accessToken: token,
+  user: {
+    id: 1,
+    name: 'João Silva',
+    email: 'joao@example.com',
+    role: Role.admin,
+    createdAt: new Date('2024-01-01T00:00:00.000Z'),
+    updatedAt: new Date('2024-01-01T00:00:00.000Z')
+  }
+};
