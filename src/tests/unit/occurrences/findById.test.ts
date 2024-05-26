@@ -30,7 +30,7 @@ describe('occurrences - findById', () => {
       const errorMessage = 'Nenhuma Occurrence encontrada com esse Id';
       const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
-      mockedPrisma.user.findUnique.mockResolvedValue(null);
+      mockedPrisma.occurrence.findUnique.mockResolvedValue(null);
 
       try {
         await service.findById(999);
