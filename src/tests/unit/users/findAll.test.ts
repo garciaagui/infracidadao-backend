@@ -11,10 +11,11 @@ describe('users - findAll', () => {
     vi.restoreAllMocks();
   });
 
+  const service = new UserService(mockedPrisma);
+
   describe('caso de sucesso', () => {
     it('deve retornar todos os usuários', async () => {
       const { users } = mockedData;
-      const service = new UserService(mockedPrisma);
 
       mockedPrisma.user.findMany.mockResolvedValue(users);
 
@@ -27,7 +28,6 @@ describe('users - findAll', () => {
   describe('caso de falha', () => {
     it('deve lançar um erro quando nenhum usuário for encontrado', async () => {
       const errorMessage = 'Nenhum usuário encontrado';
-      const service = new UserService(mockedPrisma);
 
       mockedPrisma.user.findMany.mockResolvedValue([]);
 

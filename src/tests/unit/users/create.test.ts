@@ -12,11 +12,10 @@ describe('users - create', () => {
   });
 
   const { createRequest, createResponse } = mockedData;
+  const service = new UserService(mockedPrisma);
 
   describe('caso de sucesso', () => {
     it('deve retornar o usuário criado', async () => {
-      const service = new UserService(mockedPrisma);
-
       mockedPrisma.user.findUnique.mockResolvedValue(null);
       mockedPrisma.user.create.mockResolvedValue(createResponse);
 
@@ -32,7 +31,6 @@ describe('users - create', () => {
         const { users } = mockedData;
         const registeredUser = users[0];
         const errorMessage = 'E-mail já registrado';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(registeredUser);
 
@@ -49,7 +47,6 @@ describe('users - create', () => {
 
       it('deve lançar um erro quando o campo de e-mail estiver vazio', async () => {
         const errorMessage = 'Campo de e-mail não pode ser vazio';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -67,7 +64,6 @@ describe('users - create', () => {
       it('deve lançar um erro quando o valor de e-mail não for do tipo string', async () => {
         const invalidEmail = 123 as never;
         const errorMessage = 'E-mail precisa ser do tipo string';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -85,7 +81,6 @@ describe('users - create', () => {
       it('deve lançar um erro quando o formato de e-mail for inválido', async () => {
         const invalidEmail = 'invalid';
         const errorMessage = 'E-mail inválido';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -104,7 +99,6 @@ describe('users - create', () => {
     describe('casos de senha inválida', () => {
       it('deve lançar um erro quando o campo de senha estiver vazio', async () => {
         const errorMessage = 'Campo de senha não pode ser vazio';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -122,7 +116,6 @@ describe('users - create', () => {
       it('deve lançar um erro quando o valor de senha não for do tipo string', async () => {
         const invalidPassword = 123 as never;
         const errorMessage = 'Senha precisa ser do tipo string';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -140,7 +133,6 @@ describe('users - create', () => {
       it('deve lançar um erro quando o formato de senha for inválido', async () => {
         const invalidPassword = 'xxx'; // Menos de 8 caracteres
         const errorMessage = 'Senha precisa ter no mínimo 8 caracteres';
-        const service = new UserService(mockedPrisma);
 
         mockedPrisma.user.findUnique.mockResolvedValue(null);
 

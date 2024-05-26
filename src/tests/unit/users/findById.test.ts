@@ -11,10 +11,11 @@ describe('users - findById', () => {
     vi.restoreAllMocks();
   });
 
+  const service = new UserService(mockedPrisma);
+
   describe('caso de sucesso', () => {
     it('deve retornar o usuário cujo id foi passado nos parâmetros', async () => {
       const user = mockedData.users[0];
-      const service = new UserService(mockedPrisma);
 
       mockedPrisma.user.findUnique.mockResolvedValue(user);
 
@@ -27,7 +28,6 @@ describe('users - findById', () => {
   describe('casos de falha', () => {
     it('deve lançar um erro quando nenhum usuário foi encontrado', async () => {
       const errorMessage = 'Nenhum usuário encontrado com esse Id';
-      const service = new UserService(mockedPrisma);
 
       mockedPrisma.user.findUnique.mockResolvedValue(null);
 
@@ -42,7 +42,6 @@ describe('users - findById', () => {
     it('deve lançar um erro quando o id for inválido', async () => {
       const errorMessage = 'Id deve ser um número inteiro';
       const invalidId = 'invalid' as never;
-      const service = new UserService(mockedPrisma);
 
       try {
         await service.findById(invalidId);
