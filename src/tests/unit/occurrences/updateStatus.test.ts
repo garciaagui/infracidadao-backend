@@ -35,7 +35,7 @@ describe('occurrences - updateStatus', () => {
     });
   });
 
-  describe('caso de falha', () => {
+  describe('casos de falha', () => {
     describe('casos de id inválido', () => {
       it('deve lançar um erro caso nenhuma occurrence seja encontrada com o id passado', async () => {
         const errorMessage = 'Nenhuma Occurrence encontrada com esse Id';

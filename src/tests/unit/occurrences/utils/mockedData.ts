@@ -87,3 +87,47 @@ export const updateStatusResponse = {
   ...occurrences[1],
   status: Status.Andamento
 };
+
+export const s3uploadResponse = {
+  promise: () =>
+    Promise.resolve({
+      ETag: '"etag-of-uploaded-object"',
+      Location: 'URL-of-uploaded-object',
+      key: 'object-key',
+      Key: 'object-key',
+      Bucket: 'bucket-name'
+    }),
+  abort: () => {},
+  send: () => {},
+  on: () => {}
+};
+
+export const createFileData = [
+  {
+    fieldname: 'image',
+    originalname: 'test.png',
+    encoding: '7bit',
+    mimetype: 'image/png',
+    size: 1024,
+    buffer: Buffer.from('test image')
+  }
+] as Express.Multer.File[];
+
+export const createTextData = {
+  title: 'Título com mais de 10 caracteres',
+  description: 'Descrição da ocorrência com mais de 40 caracteres.',
+  neighborhood: 'Bairro X',
+  street: 'Rua Y',
+  zipCode: '00.000-000',
+  reference: 'Referência Z',
+  userId: 1
+};
+
+export const createResponse = {
+  ...createTextData,
+  id: 6,
+  status: Status.Aberto,
+  image: 'public-endpoint/uniquefilename.png',
+  createdAt: new Date('2024-01-01T00:00:00.000Z'),
+  updatedAt: new Date('2024-01-01T00:00:00.000Z')
+};
