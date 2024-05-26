@@ -14,12 +14,12 @@ describe('occurrences - updateStatus', () => {
   });
 
   const { occurrences } = mockedData;
+  const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
   describe('caso de sucesso', () => {
     it('deve retornar a occurrence com o status atualizado', async () => {
       const { updateStatusResponse, occurrences } = mockedData;
       const occurrenceToBeUpdated = occurrences[1];
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       mockedPrisma.occurrence.findUnique.mockResolvedValue(
         occurrenceToBeUpdated
@@ -39,7 +39,6 @@ describe('occurrences - updateStatus', () => {
     describe('casos de id inválido', () => {
       it('deve lançar um erro caso nenhuma occurrence seja encontrada com o id passado', async () => {
         const errorMessage = 'Nenhuma Occurrence encontrada com esse Id';
-        const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
         mockedPrisma.occurrence.findUnique.mockResolvedValue(null);
 
@@ -54,7 +53,6 @@ describe('occurrences - updateStatus', () => {
       it('deve lançar um erro quando o id passado for inválido', async () => {
         const errorMessage = 'Id deve ser um número inteiro';
         const invalidId = 'invalid' as never;
-        const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
         try {
           await service.updateStatus(invalidId, Status.Andamento);
@@ -69,7 +67,6 @@ describe('occurrences - updateStatus', () => {
       it('deve lançar um erro caso a occurrence já esteja finalizada', async () => {
         const occurrenceToBeUpdated = occurrences[0];
         const errorMessage = 'Occurrence já finalizada';
-        const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
         mockedPrisma.occurrence.findUnique.mockResolvedValue(
           occurrenceToBeUpdated
@@ -91,7 +88,6 @@ describe('occurrences - updateStatus', () => {
         const errorMessage =
           'Status inválido. Valores aceitos na atualização: `Andamento` ou `Finalizado`';
         const invalidStatus = 'invalid' as never;
-        const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
         mockedPrisma.occurrence.findUnique.mockResolvedValue(
           occurrenceToBeUpdated
@@ -108,7 +104,6 @@ describe('occurrences - updateStatus', () => {
       it('deve lançar um erro caso o novo status seja igual ao atual', async () => {
         const occurrenceToBeUpdated = occurrences[2];
         const errorMessage = 'Novo status é igual ao status atual';
-        const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
         mockedPrisma.occurrence.findUnique.mockResolvedValue(
           occurrenceToBeUpdated

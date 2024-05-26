@@ -12,10 +12,11 @@ describe('occurrences - findById', () => {
     vi.restoreAllMocks();
   });
 
+  const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
+
   describe('caso de sucesso', () => {
     it('deve retornar a occurrence cujo id foi passado nos parâmetros', async () => {
       const occurrence = mockedData.occurrences[0];
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       mockedPrisma.occurrence.findUnique.mockResolvedValue(occurrence);
 
@@ -28,7 +29,6 @@ describe('occurrences - findById', () => {
   describe('casos de falha', () => {
     it('deve lançar um erro quando nenhuma occurrence for encontrada com o id passado', async () => {
       const errorMessage = 'Nenhuma Occurrence encontrada com esse Id';
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       mockedPrisma.occurrence.findUnique.mockResolvedValue(null);
 
@@ -43,7 +43,6 @@ describe('occurrences - findById', () => {
     it('deve lançar um erro quando o id for inválido', async () => {
       const errorMessage = 'Id deve ser um número inteiro';
       const invalidId = 'invalid' as never;
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       try {
         await service.findById(invalidId);

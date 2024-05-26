@@ -12,10 +12,11 @@ describe('occurrences - findAll', () => {
     vi.restoreAllMocks();
   });
 
+  const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
+
   describe('caso de sucesso', () => {
     it('deve retornar todas as occurrences', async () => {
       const { occurrences } = mockedData;
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       mockedPrisma.occurrence.findMany.mockResolvedValue(occurrences);
 
@@ -28,7 +29,6 @@ describe('occurrences - findAll', () => {
   describe('caso de falha', () => {
     it('deve lançar um erro quando nenhuma occurrence for encontrada', async () => {
       const errorMessage = 'Nenhuma occurrence encontrada';
-      const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
       mockedPrisma.occurrence.findMany.mockResolvedValue([]);
 
