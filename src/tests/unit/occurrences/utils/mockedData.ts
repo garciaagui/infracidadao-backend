@@ -82,3 +82,8 @@ export const occurrences = [
     updatedAt: new Date('2024-01-01T00:00:00.000Z')
   }
 ];
+
+export const updateStatusResponse = {
+  ...occurrences[1],
+  status: Status.Andamento
+};

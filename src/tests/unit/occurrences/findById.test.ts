@@ -26,7 +26,7 @@ describe('occurrences - findById', () => {
   });
 
   describe('casos de falha', () => {
-    it('deve lançar um erro quando nenhum usuário foi encontrado', async () => {
+    it('deve lançar um erro quando nenhuma occurrence for encontrada com o id passado', async () => {
       const errorMessage = 'Nenhuma Occurrence encontrada com esse Id';
       const service = new OccurrenceService(mockedPrisma, mockedAwsS3);
 
