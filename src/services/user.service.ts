@@ -59,6 +59,7 @@ export default class UserService {
   }
 
   public async create(data: UserCreationType): Promise<Omit<User, 'password'>> {
+    //
     v.validateUserCreation(data);
 
     await this.checkUserExistence(data.email);
