@@ -1,10 +1,9 @@
-import { PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, User } from '@prisma/client';
 import * as e from '../exceptions';
 import { comparePasswords, generateHashedPassword } from '../libs/bcriptjs';
 import { generateToken } from '../libs/jwt';
 import * as v from '../validations';
 import { userSelectedFields } from './utils/constants';
-import { UserCreationType } from './utils/types';
 
 export default class UserService {
   private model: PrismaClient;
@@ -58,14 +57,16 @@ export default class UserService {
     }
   }
 
-  public async create(data: UserCreationType): Promise<Omit<User, 'password'>> {
+  public async create(
+    data: Prisma.UserCreateInput
+  ): Promise<Omit<User, 'password'>> {
     v.validateUserCreation(data);
 
     await this.checkUserExistence(data.email);
 
     const hashedPassword = await generateHashedPassword(data.password);
     const createdUser = await this.model.user.create({
-      data: { ...data, password: hashedPassword, role: 'user' },
+      data: { ...data, password: hashedPassword },
       select: { ...userSelectedFields }
     });
 

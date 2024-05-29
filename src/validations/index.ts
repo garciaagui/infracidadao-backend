@@ -78,7 +78,7 @@ export const validateOccurrenceReply = (
   }
 };
 
-export const validateUserCreation = (data: T.UserCreationType) => {
+export const validateUserCreation = (data: Prisma.UserCreateInput) => {
   const { error } = s.userCreationSchema.validate(data);
 
   if (error) {

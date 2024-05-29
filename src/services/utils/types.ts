@@ -16,9 +16,3 @@ export type OccurrenceReplyCreationType = {
   occurrenceId: number;
   occurrenceStatus: StatusUpdate;
 };
-
-export type UserCreationType = {
-  name: string;
-  email: string;
-  password: string;
-};

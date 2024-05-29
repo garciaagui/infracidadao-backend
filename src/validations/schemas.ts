@@ -1,4 +1,4 @@
-import { StatusUpdate } from '@prisma/client';
+import { Role, StatusUpdate } from '@prisma/client';
 import joi from 'joi';
 
 export const idSchema = joi.object({
@@ -117,5 +117,13 @@ export const userCreationSchema = loginSchema.keys({
     'string.empty': 'Campo de nome não pode ser vazio',
     'string.base': 'Nome precisa ser do tipo string',
     'string.min': 'O nome precisa ter no mínimo 10 caracteres'
-  })
+  }),
+  role: joi
+    .string()
+    .valid(...Object.keys(Role))
+    .required()
+    .messages({
+      'any.required': 'Campo de função não pode ser vazio',
+      'any.only': `Função inválida. Valores aceitos: ${Object.keys(Role).join(', ')}`
+    })
 });
