@@ -44,13 +44,13 @@ export const token = 'mockedToken';
 export const createRequest = {
   name: 'João Silva',
   email: 'joao@example.com',
-  password: '123456789'
+  password: '123456789',
+  role: Role.user
 };
 
 export const createResponse = {
   ...createRequest,
   id: 5,
-  role: Role.user,
   password: 'hashedPassword',
   createdAt: new Date('2024-01-01T00:00:00.000Z'),
   updatedAt: new Date('2024-01-01T00:00:00.000Z')
