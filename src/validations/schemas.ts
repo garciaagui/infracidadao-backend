@@ -14,10 +14,11 @@ export const occurrenceCreationSchema = joi.object({
     'string.max': 'O título pode ter no máximo 127 caracteres'
   }),
   description: joi.string().min(40).max(255).required().messages({
-    'any.required': 'Campo descrição não pode ser vazia',
-    'string.empty': 'Campo descrição não pode ser vazia',
+    'any.required': 'Campo descrição não pode ser vazio',
+    'string.empty': 'Campo descrição não pode ser vazio',
     'string.base': 'Descrição precisa ser do tipo string',
-    'string.min': 'A descrição precisa ter no mínimo 40 caracteres'
+    'string.min': 'A descrição precisa ter no mínimo 40 caracteres',
+    'string.max': 'A descrição pode ter no máximo 255 caracteres'
   }),
   neighborhood: joi.string().required().messages({
     'any.required': 'Campo bairro não pode ser vazio',
