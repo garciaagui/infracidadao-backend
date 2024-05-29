@@ -77,6 +77,10 @@ export default class OccurrenceService {
   public async findAll(): Promise<Occurrence[]> {
     const occurrences = await this.model.occurrence.findMany({});
 
+    if (!occurrences.length || !occurrences) {
+      throw new E.NotFoundException('Nenhuma occurrence encontrada');
+    }
+
     return occurrences;
   }
 
